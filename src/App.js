@@ -1,11 +1,12 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AppLayout from './components/layout/AppLayout';
 import Blank from './pages/Blank/Blank';
 import EstimatorPage from './pages/Estimator/EstimatorPage';
 import WorkHoursPage from './pages/WorkHours/WorkHoursPage';
 
-function App() {
+import './App.css';
+
+const App = () => {
   return (
     <BrowserRouter>
       <Routes>

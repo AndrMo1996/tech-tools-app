@@ -1,9 +1,5 @@
 export const WorkHoursTableColums = [
     {
-        title: 'Closed',
-        field: 'closed'
-    },
-    {
         title: 'Type',
         field: 'type'
     },
@@ -43,10 +39,6 @@ export const WorkHoursTableColums = [
 ]
 
 export const TechEngineers = [
-    {
-        title: 'Total',
-        field: 'total'
-    },
     {
         title: 'Andrii Moruzhko',
         field: 'Andrii Moruzhko'

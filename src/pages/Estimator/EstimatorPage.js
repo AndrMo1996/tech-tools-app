@@ -5,7 +5,7 @@ import { TrujayAPI } from '../../api/trujay/TrujayAPI'
 const EstimatorPage = () => {
 
     const handleClick = () => {
-        TrujayAPI.get('/list').then((response) => {
+        TrujayAPI.get('').then((response) => {
             console.log(response);
           }, (error) => {
             console.log(error);
@@ -27,7 +27,9 @@ const EstimatorPage = () => {
         <div className="result-display">
         <p>Loading...</p>
         <TextField className="logs"
+            value="test"
             multiline
+            maxRows={30}
         />
         </div>
     </div>;

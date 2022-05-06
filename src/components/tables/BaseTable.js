@@ -1,5 +1,4 @@
 import MaterialTable from "material-table";
-import React, { useEffect } from "react";
 
 const BaseTable = ({ name, columns, data }) => {
   return (

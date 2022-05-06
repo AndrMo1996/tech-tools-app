@@ -38,7 +38,6 @@ const Sidebar = ({ isActive, setIsActive, setTitle }) => {
       <div className="sidebar-menu">
         {sidebarNavItems.map((item, index) => (
           <Link
-            activeStyle={{ backgraundColor: "black" }}
             to={item.link}
             key={index}
             style={{ textDecoration: "none" }}
