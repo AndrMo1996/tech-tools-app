@@ -1,9 +1,41 @@
-import axios from 'axios';
+export const getEntities = async (appKey, page, type) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_API_URL}trujay/entities?applicationKey=${appKey}&page=${page}&filter={"type":"${type}"}`
+  );
 
-export const TrujayAPI = axios.create({
-    baseURL: 'http://localhost:8088/api/trujay/entities?applicationKey=f938a08d55104ef6bd47c42b4d0c62536f4d0040&filter={"type":"unified"}',
-    headers: {
-        'X-API2CRM-APPLICATION-KEY': 'f938a08d55104ef6bd47c42b4d0c62536f4d0040',
-        'X-API2CRM-USER-KEY': 'dd28a647067e6dae0b3cb3be668cd8ab'
+  if (!response.ok) {
+    throw new Error("Server error. Can't get estimate");
+  }
+
+  const entities = await response.json();
+  return entities;
+};
+
+export const getEntityCount = async (appKey, entity) => {
+  let count = null;
+  do {
+    const response = await fetch(
+      `${process.env.REACT_APP_BASE_API_URL}trujay/${entity}/count?applicationKey=${appKey}`
+    );
+
+    if (!response.ok) {
+      throw new Error("Server error. Can't get estimate");
     }
-})
+
+    count = await response.json();
+  } while (count.isCache === false);
+  return count.total;
+};
+
+export const getEntityCustomFields = async (appKey, entity) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_BASE_API_URL}trujay/${entity}/customFields?applicationKey=${appKey}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Server error. Can't get estimate");
+  }
+
+  const customFields = await response.json();
+  return customFields;
+};
