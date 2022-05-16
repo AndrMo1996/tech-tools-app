@@ -1,0 +1,28 @@
+.control-menu{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.appKey-form{
+    display: flex;
+    align-items: center;
+    padding-right: 100px;
+}
+
+.task-form{
+    display: flex;
+    align-items: flex;
+    margin-left: -50px;
+}
+
+.logs{
+    margin-right: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+.status-bar{
+    display: flex;
+    align-items: center;
+}
