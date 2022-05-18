@@ -1,25 +1,35 @@
-.control-menu{
+.subtask-menu{
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-between;
 }
 
-.appKey-form{
+.input-form{
     display: flex;
     align-items: center;
-    padding-right: 100px;
 }
 
-.task-form{
+button{
+    left: 10px;
+    height: 35px;
+    bottom: 0;
+}
+
+.checkbox-form{
+    padding-top: 10px;
     display: flex;
-    align-items: flex;
-    margin-left: -50px;
 }
 
-.logs{
+.checkbox-item{
+    padding-right: 10px;
+}
+
+.entities-box{
     margin-right: 50px;
     width: 100%;
-    height: 100%;
+    height: 100;
+    border-width: 2px;
+    background-color: aqua;
 }
 
 .status-bar{
