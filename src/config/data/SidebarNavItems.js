@@ -3,6 +3,8 @@ import CalculateIcon from '@mui/icons-material/Calculate';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import NetworkCheckIcon from '@mui/icons-material/NetworkCheck';
+import AddTaskIcon from '@mui/icons-material/AddTask';
+
 
 export const sidebarNavItems = [
     {
@@ -22,6 +24,12 @@ export const sidebarNavItems = [
         icon: <DeleteOutlineIcon />,
         link: "/remover",
         section: "remover"
+    },
+    {
+        title: "Subtasks",
+        icon: <AddTaskIcon />,
+        link: "/subtasks",
+        section: "subtasks"
     },
     {
         title: "Work Hours",

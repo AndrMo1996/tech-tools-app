@@ -41,7 +41,7 @@ const EstimatorPage = () => {
         </Button>
       </div>
 
-      <div className="result-display">
+      <div className="result-box">
         <div className="status-bar">
           {!NOT_COMPLETED_STATUSES.includes(status) && (
             <Oval color="green" height={15} width={15} />

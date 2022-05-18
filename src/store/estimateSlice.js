@@ -18,12 +18,12 @@ export const getEstimate = createAsyncThunk(
       let entities;
 
       for (const type of EntityTypes) {
-        dispatch(setStatus(`Fetching ${type} entities`));
-        dispatch(setEstimate(`${type} entities\n\n`));
+        dispatch(setStatus(`Fetching ${type.title} entities`));
+        dispatch(setEstimate(`${type.title} entities\n\n`));
         let page = 1;
 
         do {
-          entities = await getEntities(appKey, page, type);
+          entities = await getEntities(appKey, page, type.id);
 
           for (const entity of entities) {
             dispatch(setStatus(`Count ${entity.entity}`));
