@@ -19,7 +19,6 @@ export const getEstimate = createAsyncThunk(
 
       for (const type of EntityTypes) {
         dispatch(setStatus(`Fetching ${type.title} entities`));
-        dispatch(setEstimate(`${type.title} entities\n\n`));
         let page = 1;
 
         do {
@@ -27,15 +26,23 @@ export const getEstimate = createAsyncThunk(
 
           for (const entity of entities) {
             dispatch(setStatus(`Count ${entity.entity}`));
-            const count = await getEntityCount(appKey, entity.id);
-            dispatch(setEstimate(`${entity.entity} - ${count}\n`));
 
-            const customFields = await getEntityCustomFields(appKey, entity.id);
-            if (customFields.count !== 0) {
-              dispatch(setEstimate(`  Custom fields - ${customFields.count}\n`));
-              for (const field of customFields.fields) {
-                dispatch(setEstimate(`    ${field.title}\n`));
-              }
+            const count = await getEntityCount(appKey, entity.id);
+            if (count.total > 0) {
+              const customFields = await getEntityCustomFields(
+                appKey,
+                entity.id
+              );
+              dispatch(
+                setEstimate(
+                  {
+                    entityType: type.title,
+                    title: entity.entity,
+                    total: count.total,
+                    customFields: customFields,
+                  }
+                )
+              );
             }
           }
           page++;
@@ -52,7 +59,7 @@ export const getEstimate = createAsyncThunk(
 const estimateSlice = createSlice({
   name: "estimate",
   initialState: {
-    estimate: "",
+    estimate: [],
     status: STATUS_NOT_STARTED,
     error: null,
   },
@@ -61,10 +68,11 @@ const estimateSlice = createSlice({
       state.status = action.payload;
     },
     setEstimate(state, action) {
-      state.estimate = state.estimate.concat(action.payload);
+      console.log(action.payload)
+      state.estimate.push(action.payload);
     },
     clearEstimate(state, action) {
-      state.estimate = '';
+      state.estimate = [];
     },
   },
   extraReducers: {

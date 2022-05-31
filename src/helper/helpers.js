@@ -9,3 +9,7 @@ export const formatDate = (date) => {
       padTo2Digits(date.getDate()),
     ].join('-');
   }
+
+export const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }

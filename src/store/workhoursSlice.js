@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { formatDate } from "../helper/formatDate";
+import { formatDate } from "../helper/helpers";
 
 export const fetchWorkHours = createAsyncThunk(
   "workhours/fetchWorkHours",
@@ -7,7 +7,7 @@ export const fetchWorkHours = createAsyncThunk(
     try {
       const url = `${
         process.env.REACT_APP_BASE_API_URL
-      }workhours?fromDate=${formatDate(params.fromDate)}&toDate=${formatDate(
+      }jira/workhours?fromDate=${formatDate(params.fromDate)}&toDate=${formatDate(
         params.toDate
       )}`;
 
