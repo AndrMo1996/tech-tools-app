@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+import EstimateView from "./components/EstimateView/EstimateView";
 
 import { Button, TextField } from "@mui/material";
 import { Oval } from "react-loader-spinner";
@@ -16,7 +18,7 @@ const EstimatorPage = () => {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(clearEstimate(''))
+    dispatch(clearEstimate(""));
     dispatch(getEstimate(appKey));
   };
 
@@ -48,7 +50,7 @@ const EstimatorPage = () => {
           )}
           <p>{status}</p>
         </div>
-        <TextField className="logs" value={estimate} multiline maxRows={30} />
+        <EstimateView />
       </div>
     </div>
   );

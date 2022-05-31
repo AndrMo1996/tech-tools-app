@@ -6,6 +6,7 @@ import {
   STATUS_NOT_STARTED,
 } from "../config/data/EstimatorData";
 import { getEntities } from "../api/trujay/TrujayAPI";
+import { createSubtask } from "../api/jira/JiraAPI";
 
 export const getSubtaskEntities = createAsyncThunk(
   "subtasks/getSubtaskEntities",
@@ -26,6 +27,26 @@ export const getSubtaskEntities = createAsyncThunk(
             }
             page++;
           } while (entities.length !== 0);
+        }
+      }
+      return [];
+    } catch (error) {
+      console.log(error.message);
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const createSubtasks = createAsyncThunk(
+  "subtasks/createSubtasks",
+  async function (taskId, { rejectWithValue, dispatch, getState }) {
+    try {
+      const entities = getState().subtasks.entities;
+
+      for (const entity of entities) {
+        if (entity.isSelected) {
+          const result = await createSubtask(taskId, entity.id);
+          console.log(entity);
         }
       }
       return [];
@@ -64,7 +85,7 @@ const subtasksSlice = createSlice({
     addEntity(state, action) {
       state.entities.push({
         ...action.payload,
-        isSelected: true,
+        isSelected: false,
       });
     },
     clearEntities(state, action) {
@@ -79,9 +100,22 @@ const subtasksSlice = createSlice({
       state.status = STATUS_FAILED;
       state.error = action.payload;
     },
+    [createSubtasks.fulfilled]: (state, action) => {
+      state.status = STATUS_COMPLETED;
+    },
+    [createSubtasks.rejected]: (state, action) => {
+      state.status = STATUS_FAILED;
+      state.error = action.payload;
+    },
   },
 });
 
-export const { setStatus, addEntity, toggleEntitySelected, toggleEntityTypeSelected, clearEntities } = subtasksSlice.actions;
+export const {
+  setStatus,
+  addEntity,
+  toggleEntitySelected,
+  toggleEntityTypeSelected,
+  clearEntities,
+} = subtasksSlice.actions;
 
 export default subtasksSlice.reducer;

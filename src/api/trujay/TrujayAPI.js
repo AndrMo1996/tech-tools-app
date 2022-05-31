@@ -1,3 +1,5 @@
+import { sleep } from "../../helper/helpers";
+
 export const getEntities = async (appKey, page, type) => {
   const response = await fetch(
     `${process.env.REACT_APP_BASE_API_URL}trujay/entities?applicationKey=${appKey}&page=${page}&filter={"type":"${type}"}`
@@ -23,8 +25,16 @@ export const getEntityCount = async (appKey, entity) => {
     }
 
     count = await response.json();
-  } while (count.isCache === false);
-  return count.total;
+
+    if (count.failed === '') {
+      return count
+    }
+
+    if (count.cacheStatus === 'in process') {
+      await sleep(10000);
+    }
+  } while (count.cacheStatus === 'in process');
+  return count;
 };
 
 export const getEntityCustomFields = async (appKey, entity) => {

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { Button, TextField } from "@mui/material";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import { Oval } from "react-loader-spinner";
+import Checkbox from "../../components/checkbox/Checkbox";
 
 import { NOT_COMPLETED_STATUSES } from "../../config/data/EstimatorData";
 import {
   clearEntities,
+  createSubtasks,
   getSubtaskEntities,
   toggleEntitySelected,
   toggleEntityTypeSelected,
@@ -17,6 +19,7 @@ import "./subtasks.css";
 const SubtasksPage = () => {
   const [appKey, setAppKey] = useState(null);
   const [taskId, setTaskId] = useState(null);
+  const [isSample, setIsSample] = useState(false);
 
   const { status, error, entities, entityTypes } = useSelector(
     (state) => state.subtasks
@@ -28,7 +31,9 @@ const SubtasksPage = () => {
     dispatch(getSubtaskEntities(appKey));
   };
 
-  const handleCreateSubtasks = () => {};
+  const handleCreateSubtasks = () => {
+    dispatch(createSubtasks(taskId));
+  };
 
   const handleOnChangeAppKey = (e) => {
     setAppKey(e.target.value);
@@ -60,14 +65,14 @@ const SubtasksPage = () => {
           <div className="checkbox-form">
             {entityTypes.map((item) => (
               <div className="checkbox-item">
-                <input
-                  type="checkbox"
+                <Checkbox
                   id={item.id}
-                  name={item.title}
+                  title={item.title}
                   checked={item.isSelected}
-                  onChange={() => dispatch(toggleEntityTypeSelected(item.id))}
+                  onChangeHandle={() =>
+                    dispatch(toggleEntityTypeSelected(item.id))
+                  }
                 />
-                {item.title}
               </div>
             ))}
           </div>
@@ -90,13 +95,12 @@ const SubtasksPage = () => {
           </div>
           <div className="checkbox-form">
             <div className="checkbox-item">
-              <input
-                type="checkbox"
+              <Checkbox
                 id="isSample"
-                name="isSample"
-                checked="false"
+                title="Is Sample Migration?"
+                checked={isSample}
+                onChangeHandle={() => setIsSample(!isSample)}
               />
-              Is Sample Migration?
             </div>
           </div>
         </div>
@@ -110,18 +114,18 @@ const SubtasksPage = () => {
           <p>{status}</p>
         </div>
         <div className="entities-box">
-          {entities.map((item) => (
-            <div className="entities-checkbox-item">
-              <input
-                type="checkbox"
-                id={item.id}
-                name={item.entity}
-                checked={item.isSelected}
-                onChange={() => dispatch(toggleEntitySelected(item.id))}
-              />
-              {item.entity}
-            </div>
-          ))}
+          <Grid container spacing={2}>
+            {entities.map((item) => (
+              <Grid item key={item.id} xs={12} sm={6} md={4}>
+                <Checkbox
+                  id={item.id}
+                  title={item.entity}
+                  checked={item.isSelected}
+                  onChangeHandle={() => dispatch(toggleEntitySelected(item.id))}
+                />
+              </Grid>
+            ))}
+          </Grid>
         </div>
       </div>
     </div>
