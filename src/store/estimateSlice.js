@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  EntityTypes,
   STATUS_COMPLETED,
   STATUS_FAILED,
   STATUS_NOT_STARTED,
-} from "../config/data/EstimatorData";
+} from "../config/data/EstimatorConsts";
+import { EntityTypes } from "../config/data/EntityTypes";
+
 import {
   getEntities,
   getEntityCount,
@@ -17,36 +18,37 @@ export const getEstimate = createAsyncThunk(
     try {
       let entities;
 
-      for (const type of EntityTypes) {
-        dispatch(setStatus(`Fetching ${type.title} entities`));
-        let page = 1;
+      for (const type of getState().estimate.entityTypes) {
+        if (type.isSelected) {
+          dispatch(setStatus(`Fetching ${type.title} entities`));
+          let page = 1;
 
-        do {
-          entities = await getEntities(appKey, page, type.id);
+          do {
+            entities = await getEntities(appKey, page, type.id);
 
-          for (const entity of entities) {
-            dispatch(setStatus(`Count ${entity.entity}`));
+            for (const entity of entities) {
+              dispatch(setStatus(`Count ${entity.entity}`));
 
-            const count = await getEntityCount(appKey, entity.id);
-            if (count.total > 0) {
-              const customFields = await getEntityCustomFields(
-                appKey,
-                entity.id
-              );
-              dispatch(
-                setEstimate(
-                  {
+              const count = await getEntityCount(appKey, entity.id);
+              if (count.total > 0) {
+                const customFields = await getEntityCustomFields(
+                  appKey,
+                  entity.id
+                );
+                dispatch(
+                  setEstimate({
                     entityType: type.title,
                     title: entity.entity,
+                    id: entity.id,
                     total: count.total,
                     customFields: customFields,
-                  }
-                )
-              );
+                  })
+                );
+              }
             }
-          }
-          page++;
-        } while (entities.length !== 0);
+            page++;
+          } while (entities.length !== 0);
+        }
       }
       return [];
     } catch (error) {
@@ -60,6 +62,7 @@ const estimateSlice = createSlice({
   name: "estimate",
   initialState: {
     estimate: [],
+    entityTypes: EntityTypes,
     status: STATUS_NOT_STARTED,
     error: null,
   },
@@ -68,11 +71,16 @@ const estimateSlice = createSlice({
       state.status = action.payload;
     },
     setEstimate(state, action) {
-      console.log(action.payload)
       state.estimate.push(action.payload);
     },
     clearEstimate(state, action) {
       state.estimate = [];
+    },
+    toggleEntityTypeSelected(state, action) {
+      const toggledRecord = state.entityTypes.find(
+        (type) => type.id === action.payload
+      );
+      toggledRecord.isSelected = !toggledRecord.isSelected;
     },
   },
   extraReducers: {
@@ -86,6 +94,7 @@ const estimateSlice = createSlice({
   },
 });
 
-export const { setStatus, setEstimate, clearEstimate } = estimateSlice.actions;
+export const { setStatus, setEstimate, clearEstimate, toggleEntityTypeSelected } =
+  estimateSlice.actions;
 
 export default estimateSlice.reducer;

@@ -1,23 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { formatDate } from "../helper/helpers";
+import { getWorkhours } from "../api/jira/JiraAPI";
 
 export const fetchWorkHours = createAsyncThunk(
   "workhours/fetchWorkHours",
   async function (params, { rejectWithValue }) {
     try {
-      const url = `${
-        process.env.REACT_APP_BASE_API_URL
-      }jira/workhours?fromDate=${formatDate(params.fromDate)}&toDate=${formatDate(
-        params.toDate
-      )}`;
-
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error("Server error. Can't get workhours");
-      }
-
-      const data = await response.json();
+      const data = await getWorkhours(params.fromDate, params.toDate);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
