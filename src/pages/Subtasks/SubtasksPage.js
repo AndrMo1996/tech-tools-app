@@ -5,7 +5,7 @@ import { Button, Container, Grid, TextField } from "@mui/material";
 import { Oval } from "react-loader-spinner";
 import Checkbox from "../../components/checkbox/Checkbox";
 
-import { NOT_COMPLETED_STATUSES } from "../../config/data/EstimatorData";
+import { NOT_COMPLETED_STATUSES } from "../../config/data/SubtasksConsts";
 import {
   clearEntities,
   createSubtasks,
@@ -17,8 +17,8 @@ import {
 import "./subtasks.css";
 
 const SubtasksPage = () => {
-  const [appKey, setAppKey] = useState(null);
-  const [taskId, setTaskId] = useState(null);
+  const [appKey, setAppKey] = useState('');
+  const [taskId, setTaskId] = useState('');
   const [isSample, setIsSample] = useState(false);
 
   const { status, error, entities, entityTypes } = useSelector(
@@ -64,7 +64,7 @@ const SubtasksPage = () => {
 
           <div className="checkbox-form">
             {entityTypes.map((item) => (
-              <div className="checkbox-item">
+              <div key={item.id} className="checkbox-item">
                 <Checkbox
                   id={item.id}
                   title={item.title}

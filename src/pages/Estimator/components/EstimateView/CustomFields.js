@@ -5,7 +5,7 @@ const CustomFields = ({ fields }) => {
   return (
     <div>
       {fields.map((field) => {
-        return <div className={styles.custom__fields}>{`${field.title}`}<br /></div>;
+        return <div key={field.key} className={styles.custom__fields}>{`${field.title} \n`}</div>;
       })}
     </div>
   );

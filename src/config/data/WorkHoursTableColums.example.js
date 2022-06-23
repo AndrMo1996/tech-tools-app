@@ -40,16 +40,24 @@ export const WorkHoursTableColums = [
 
 export const TechEngineers = [
     {
-        title: 'First_Name_1 Last_name_1',
-        field: 'First_Name_1 Last_name_1'
+        title: 'Andrii Moruzhko',
+        field: 'Andrii Moruzhko'
     },
     {
-        title: 'First_Name_2 Last_name_2',
-        field: 'First_Name_2 Last_name_2'
+        title: 'Vasyl Matviishyn',
+        field: 'Vasyl Matviishyn'
     },
     {
-        title: 'First_Name_N Last_name_N',
-        field: 'First_Name_N Last_name_N',
+        title: 'Maksym Fedoruk',
+        field: 'Maksym Fedoruk',
+    },
+    {
+        title: 'Yaroslav Rosil',
+        field: 'Yaroslav Rosil',
+    },
+    {
+        title: 'Vladyslav Dudka',
+        field: 'Vladyslav Dudka'
     }
 ]
 

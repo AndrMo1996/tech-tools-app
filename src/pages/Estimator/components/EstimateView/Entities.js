@@ -3,23 +3,27 @@ import CustomFields from "./CustomFields";
 import styles from "./EstimateView.module.scss";
 
 const Entities = ({ entities }) => {
-  console.log(entities);
   return (
     <div>
       {entities.map((entity) => {
         if (entity.customFields.count > 0) {
           return (
-            <div className={styles.entity__info}>
-              {`${entity.title} - ${entity.total}`}
-              <br />
-              <span className={styles.custom__field__title}>{`Custom fields - ${entity.customFields.count}`}</span>
-              <br />
+            <div key={entity.id} className={styles.entity__info}>
+              {`${entity.title} - ${entity.total} \n`}
+              <span
+                className={styles.custom__field__title}
+              >{`Custom fields - ${entity.customFields.count} \n`}</span>
               <CustomFields fields={entity.customFields.fields} />
             </div>
           );
         }
 
-        return <div className={styles.entity__info}>{`${entity.title} - ${entity.total}`}</div>;
+        return (
+          <div
+            key={entity.id}
+            className={styles.entity__info}
+          >{`${entity.title} - ${entity.total} \n`}</div>
+        );
       })}
     </div>
   );

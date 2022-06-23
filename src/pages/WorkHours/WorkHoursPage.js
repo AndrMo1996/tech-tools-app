@@ -15,7 +15,6 @@ import WorkHoursBody from "./WorkHoursBody";
 import "./workhours.css";
 
 const WorkHoursPage = () => {
-  const [isErrorVisible, setIsErrorVisible] = useState(false);
   let date = new Date();
 
   const [fromDate, setFromDate] = useState(

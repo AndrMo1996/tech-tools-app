@@ -1,10 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  EntityTypes,
   STATUS_COMPLETED,
   STATUS_FAILED,
   STATUS_NOT_STARTED,
-} from "../config/data/EstimatorData";
+} from "../config/data/SubtasksConsts";
+import { EntityTypes } from "../config/data/EntityTypes";
+
 import { getEntities } from "../api/trujay/TrujayAPI";
 import { createSubtask } from "../api/jira/JiraAPI";
 
@@ -46,7 +47,6 @@ export const createSubtasks = createAsyncThunk(
       for (const entity of entities) {
         if (entity.isSelected) {
           const result = await createSubtask(taskId, entity.id);
-          console.log(entity);
         }
       }
       return [];
