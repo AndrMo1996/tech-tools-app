@@ -24,4 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 
 /src/config/data/TechEngineers.js
-/src/config/data/WorkHoursTableColums.js
+
+/src/config/data/WorkHoursTableColumns.js
