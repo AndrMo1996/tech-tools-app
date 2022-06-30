@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import { sidebarNavItems } from "../../config/data/SidebarNavItems";
 
-import logo from "../../assets/img/trujay-logo-ua.svg";
+import logo from "../../assets/img/logo.svg";
 import arrow from "../../assets/img/left-arrow.png";
 
 import "./sidebar.css";

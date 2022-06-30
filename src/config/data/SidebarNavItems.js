@@ -19,12 +19,12 @@ export const sidebarNavItems = [
         link: "/estimator",
         section: "estimator"
     },
-    {
-        title: "Remover",
-        icon: <DeleteOutlineIcon />,
-        link: "/remover",
-        section: "remover"
-    },
+    // {
+    //     title: "Remover",
+    //     icon: <DeleteOutlineIcon />,
+    //     link: "/remover",
+    //     section: "remover"
+    // },
     {
         title: "Subtasks",
         icon: <AddTaskIcon />,

@@ -1,7 +1,7 @@
 import "./blank.css";
 
 const Blank = () => {
-    return <div className="body">Welcome To TruJay Tech Tools</div>;
+    return <div className="body">Welcome to Tech Tools App</div>;
 };
 
 export default Blank;
