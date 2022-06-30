@@ -7,7 +7,7 @@ import TotalTable from "../../components/tables/TotalTable";
 import {
   WorkHoursTableColums,
   TechEngineers,
-} from "../../config/data/WorkHoursTableColums";
+} from "../../config/data/WorkHoursTableColumns";
 
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
